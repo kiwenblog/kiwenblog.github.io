@@ -2234,9 +2234,9 @@ body {
     }.box-shadow-wrapper {
       box-shadow: none !important;
     }body {
-      cursor: url('/media/curs/F:\软件\cursors\default_link.cur.cur'), default;
+      cursor: url('/media/curs/E:\gridea\themes\next\assets\media\curs\default_link.cur.cur'), default;
     }a {
-      cursor: url('/media/curs/default_normal.cur'), pointer !important;
+      cursor: pointer;
     }input, textarea, code {
       cursor: url('/media/curs/default_texto.cur'), text !important;
     }code > span.copy-code {
