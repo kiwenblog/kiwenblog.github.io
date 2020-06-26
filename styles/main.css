@@ -2236,13 +2236,13 @@ body {
     }body {
       cursor: url('/media/curs/E:\gridea\themes\next\assets\media\curs\default_link.cur.cur'), default;
     }a {
-      cursor: pointer;
+      cursor: url('/media/curs/E:\gridea\themes\next\assets\media\curs\default_normal.cur.cur'), pointer !important;
     }input, textarea, code {
-      cursor: url('/media/curs/default_texto.cur'), text !important;
+      cursor: url('/media/curs/E:\gridea\themes\next\assets\media\curs\default_texto.cur.cur'), text !important;
     }code > span.copy-code {
-      cursor: pointer;
+      cursor: url('/media/curs/E:\gridea\themes\next\assets\media\curs\default_texto.cur.cur'), text !important;
     }.post img {
-      cursor: zoom-in;
+      cursor: url('/media/curs/E:\gridea\themes\next\assets\media\curs\default_vertical.cur.cur'), zoom-in !important;
     }.post img {
-      cursor: zoom-out;
+      cursor: url('/media/curs/E:\gridea\themes\next\assets\media\curs\default_zoomout.cur.cur'), zoom-out !important;
     }
