@@ -2234,11 +2234,11 @@ body {
     }.box-shadow-wrapper {
       box-shadow: none !important;
     }body {
-      cursor: default;
+      cursor: url('/media/curs/F:\软件\cursors\default_link.cur.cur'), default;
     }a {
-      cursor: pointer;
+      cursor: url('/media/curs/default_normal.cur'), pointer !important;
     }input, textarea, code {
-      cursor: text;
+      cursor: url('/media/curs/default_texto.cur'), text !important;
     }code > span.copy-code {
       cursor: pointer;
     }.post img {
