@@ -2,13 +2,40 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.kiwen.ga</id>
     <title>Kiwen&apos;s Blog</title>
-    <updated>2020-07-05T13:15:08.825Z</updated>
+    <updated>2020-07-05T13:21:29.066Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.kiwen.ga"/>
     <link rel="self" href="https://blog.kiwen.ga/atom.xml"/>
     <logo>https://blog.kiwen.ga/images/avatar.png</logo>
     <icon>https://blog.kiwen.ga/favicon.ico</icon>
     <rights>All rights reserved 2020, Kiwen&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[利用cf的works搭建在线代理]]></title>
+        <id>https://blog.kiwen.ga/post/li-yong-cf-de-works-da-jian-zai-xian-dai-li/</id>
+        <link href="https://blog.kiwen.ga/post/li-yong-cf-de-works-da-jian-zai-xian-dai-li/">
+        </link>
+        <updated>2020-07-05T13:15:35.000Z</updated>
+        <content type="html"><![CDATA[<p>开源地址https://github.com/EtherDream/jsproxy/blob/master/cf-worker/index.js<br>
+搭建方法<br>
+使用 CloudFlare Worker 免费部署</p>
+<p>简介<br>
+CloudFlare Worker 是 CloudFlare 的边缘计算服务。开发者可通过 JavaScript 对 CDN 进行编程，从而能灵活处理 HTTP 请求。这使得很多任务可在 CDN 上完成，无需自己的服务器参与。</p>
+<p>部署<br>
+首页：https://workers.cloudflare.com</p>
+<p>注册，登陆，Start building，取一个子域名，Create a Worker。</p>
+<p>复制 index.js 到左侧代码框，Save and deploy。如果正常，右侧应显示首页。</p>
+<p>收藏地址框中的 https://xxxx.子域名.workers.dev，以后可直接访问。</p>
+<p>计费<br>
+后退到 overview 页面可参看使用情况。免费版每天有 10 万次免费请求，对于个人通常足够。</p>
+<p>如果不够用，可注册多个 Worker，在 conf.js 中配置多线路负载均衡。或者升级到 $5 的高级版本，每月可用 1000 万次请求（超出部分 $0.5/百万次请求）。</p>
+<p>修改配置<br>
+默认情况下，静态资源从 https://etherdream.github.io/jsproxy 反向代理，可通过代码中 ASSET_URL 配置，从而可使用自定义的 conf.js 配置。</p>
+<p>存在问题<br>
+WebSocket 代理尚未实现</p>
+<p>外链限制尚未实现</p>
+<p>未充分测试，以后再完善</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[SSF构建过程]]></title>
         <id>https://blog.kiwen.ga/post/ssf-gou-jian-guo-cheng/</id>

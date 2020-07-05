@@ -9,7 +9,7 @@
 <meta name="description" content="">
 <meta name="theme-color" content="#000">
 <title>SSF构建过程 | Kiwen&#39;s Blog</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1593948282574">
+<link rel="shortcut icon" href="/favicon.ico?v=1593955232978">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -185,7 +185,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">1</span>
+        <span class="site-item-stat-count">2</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -562,6 +562,10 @@ SSFB值得是SqlSessionFactoryBuilder</p>
   </div>
   <div class="nav">
     <div class="nav-prev">
+      
+        <i class="fa fa-chevron-left"></i>
+        <a class="nav-pc-next" title="利用cf的works搭建在线代理" href="https://blog.kiwen.ga/post/li-yong-cf-de-works-da-jian-zai-xian-dai-li/">利用cf的works搭建在线代理</a class="nav-pc-next">
+        <a class="nav-mobile-prev" title="利用cf的works搭建在线代理" href="https://blog.kiwen.ga/post/li-yong-cf-de-works-da-jian-zai-xian-dai-li/">上一篇</a>
       
     </div>
     <div class="nav-next">
@@ -1024,6 +1028,30 @@ SSFB值得是SqlSessionFactoryBuilder</p>
       <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://blog.kiwen.ga/post/li-yong-cf-de-works-da-jian-zai-xian-dai-li/"" data-c="
+          &lt;p&gt;开源地址https://github.com/EtherDream/jsproxy/blob/master/cf-worker/index.js&lt;br&gt;
+搭建方法&lt;br&gt;
+使用 CloudFlare Worker 免费部署&lt;/p&gt;
+&lt;p&gt;简介&lt;br&gt;
+CloudFlare Worker 是 CloudFlare 的边缘计算服务。开发者可通过 JavaScript 对 CDN 进行编程，从而能灵活处理 HTTP 请求。这使得很多任务可在 CDN 上完成，无需自己的服务器参与。&lt;/p&gt;
+&lt;p&gt;部署&lt;br&gt;
+首页：https://workers.cloudflare.com&lt;/p&gt;
+&lt;p&gt;注册，登陆，Start building，取一个子域名，Create a Worker。&lt;/p&gt;
+&lt;p&gt;复制 index.js 到左侧代码框，Save and deploy。如果正常，右侧应显示首页。&lt;/p&gt;
+&lt;p&gt;收藏地址框中的 https://xxxx.子域名.workers.dev，以后可直接访问。&lt;/p&gt;
+&lt;p&gt;计费&lt;br&gt;
+后退到 overview 页面可参看使用情况。免费版每天有 10 万次免费请求，对于个人通常足够。&lt;/p&gt;
+&lt;p&gt;如果不够用，可注册多个 Worker，在 conf.js 中配置多线路负载均衡。或者升级到 $5 的高级版本，每月可用 1000 万次请求（超出部分 $0.5/百万次请求）。&lt;/p&gt;
+&lt;p&gt;修改配置&lt;br&gt;
+默认情况下，静态资源从 https://etherdream.github.io/jsproxy 反向代理，可通过代码中 ASSET_URL 配置，从而可使用自定义的 conf.js 配置。&lt;/p&gt;
+&lt;p&gt;存在问题&lt;br&gt;
+WebSocket 代理尚未实现&lt;/p&gt;
+&lt;p&gt;外链限制尚未实现&lt;/p&gt;
+&lt;p&gt;未充分测试，以后再完善&lt;/p&gt;
+">利用cf的works搭建在线代理</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://blog.kiwen.ga/post/ssf-gou-jian-guo-cheng/"" data-c="
