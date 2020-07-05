@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.kiwen.ga</id>
     <title>Kiwen&apos;s Blog</title>
-    <updated>2020-07-05T11:16:05.388Z</updated>
+    <updated>2020-07-05T11:17:24.575Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.kiwen.ga"/>
     <link rel="self" href="https://blog.kiwen.ga/atom.xml"/>
@@ -15,20 +15,49 @@
         <link href="https://blog.kiwen.ga/post/ssf-gou-jian-guo-cheng/">
         </link>
         <updated>2020-07-05T10:42:42.000Z</updated>
-        <content type="html"><![CDATA[<p>[b]SSF构建过程<br>
+        <content type="html"><![CDATA[<p>SSF构建过程<br>
 源码分析<br>
 首先创建一个SqlSesionFactoryBuilder对象<br>
-[mw_shl_code=java,true]public class SqlSessionFactoryBuilder {<br>
+[Java] 纯文本查看 复制代码<br>
+?<br>
+1<br>
+2<br>
+3<br>
+4<br>
+5<br>
+public class SqlSessionFactoryBuilder {<br>
 public SqlSessionFactoryBuilder() {<br>
 }<br>
 //省略其它代码<br>
-}[/mw_shl_code]<br>
-其次 SSFB 对象调用 build 方法<br>
-[mw_shl_code=java,true]public SqlSessionFactory build(InputStream inputStream) {<br>
+}</p>
+<p>其次 SSFB 对象调用 build 方法<br>
+[Java] 纯文本查看 复制代码<br>
+?<br>
+1<br>
+2<br>
+3<br>
+public SqlSessionFactory build(InputStream inputStream) {<br>
 return this.build((InputStream)inputStream, (String)null, (Properties)null);<br>
-}[/mw_shl_code]<br>
-然后再看他的重载方法<br>
-[mw_shl_code=java,true]public SqlSessionFactory build(InputStream inputStream, String environment, Properties properties) {<br>
+}</p>
+<p>然后再看他的重载方法<br>
+[Java] 纯文本查看 复制代码<br>
+?<br>
+01<br>
+02<br>
+03<br>
+04<br>
+05<br>
+06<br>
+07<br>
+08<br>
+09<br>
+10<br>
+11<br>
+12<br>
+13<br>
+14<br>
+15<br>
+public SqlSessionFactory build(InputStream inputStream, String environment, Properties properties) {<br>
 try {<br>
 XMLConfigBuilder parser = new XMLConfigBuilder(inputStream, environment, properties);<br>
 return build(parser.parse());<br>
@@ -42,38 +71,98 @@ inputStream.close();<br>
 // Intentionally ignore. Prefer previous error.<br>
 }<br>
 }<br>
-}[/mw_shl_code]<br>
-这个构造函数将我们的配置文件转换为 XMLConfigBuilder 对象，这个很复杂，由于时间，再发帖另论<br>
-[mw_shl_code=java,true]return build(parser.parse());[/mw_shl_code]<br>
-这里有两处注意的地方，parser.parse() 返回一个Configuration 对象，这个对象保罗万千，暂时也不深究。此外build方法的实现如下：<br>
-[mw_shl_code=java,true]public SqlSessionFactory build(Configuration config) {<br>
+}</p>
+<p>这个构造函数将我们的配置文件转换为 XMLConfigBuilder 对象，这个很复杂，由于时间，再发帖另论<br>
+[Java] 纯文本查看 复制代码<br>
+?<br>
+1<br>
+return build(parser.parse());</p>
+<p>这里有两处注意的地方，parser.parse() 返回一个Configuration 对象，这个对象保罗万千，暂时也不深究。此外build方法的实现如下：<br>
+[Java] 纯文本查看 复制代码<br>
+?<br>
+1<br>
+2<br>
+3<br>
+public SqlSessionFactory build(Configuration config) {<br>
 return new DefaultSqlSessionFactory(config);<br>
-}[/mw_shl_code]<br>
-它返回了 DefaultSqlSessionFactory对象，并且将 Configuration 对象赋值其属性<br>
-[mw_shl_code=java,true]public class DefaultSqlSessionFactory implements SqlSessionFactory {</p>
+}</p>
+<p>它返回了 DefaultSqlSessionFactory对象，并且将 Configuration 对象赋值其属性<br>
+[Java] 纯文本查看 复制代码<br>
+?<br>
+1<br>
+2<br>
+3<br>
+4<br>
+5<br>
+6<br>
+7<br>
+8<br>
+9<br>
+public class DefaultSqlSessionFactory implements SqlSessionFactory {</p>
 <p>private final Configuration configuration;</p>
 <p>public DefaultSqlSessionFactory(Configuration configuration) {<br>
 this.configuration = configuration;<br>
 }<br>
 //这里省略其它代码<br>
-}[/mw_shl_code]<br>
-由于 DefaultSqlSessionFactory 实现了 SSF 接口，那麽<br>
-[mw_shl_code=java,true]public class DefaultSqlSessionFactory implements SqlSessionFactory {</p>
+}</p>
+<p>由于 DefaultSqlSessionFactory 实现了 SSF 接口，那麽<br>
+[Java] 纯文本查看 复制代码<br>
+?<br>
+1<br>
+2<br>
+3<br>
+4<br>
+5<br>
+6<br>
+7<br>
+8<br>
+9<br>
+public class DefaultSqlSessionFactory implements SqlSessionFactory {</p>
 <p>private final Configuration configuration;</p>
 <p>public DefaultSqlSessionFactory(Configuration configuration) {<br>
 this.configuration = configuration;<br>
 }<br>
 //这里省略其它代码<br>
-}[/mw_shl_code]<br>
-这个就结束了</p>
+}</p>
+<p>这个就结束了</p>
 <p>源码的设计思想<br>
 首先先定义SSF接口<br>
-[mw_shl_code=asm,true]package com.yefengyu.mybatis;</p>
+[Asm] 纯文本查看 复制代码<br>
+?<br>
+1<br>
+2<br>
+3<br>
+4<br>
+5<br>
+package com.yefengyu.mybatis;</p>
 <p>public interface SqlSessionFactory {<br>
 void test();<br>
-}[/mw_shl_code]<br>
-然后通过编写代码来实现调用接口<br>
-[mw_shl_code=java,true]package com.yefengyu.mybatis;</p>
+}</p>
+<p>然后通过编写代码来实现调用接口<br>
+[Java] 纯文本查看 复制代码<br>
+?<br>
+01<br>
+02<br>
+03<br>
+04<br>
+05<br>
+06<br>
+07<br>
+08<br>
+09<br>
+10<br>
+11<br>
+12<br>
+13<br>
+14<br>
+15<br>
+16<br>
+17<br>
+18<br>
+19<br>
+20<br>
+21<br>
+package com.yefengyu.mybatis;</p>
 <p>import org.apache.ibatis.builder.xml.XMLConfigBuilder;<br>
 import org.apache.ibatis.session.Configuration;</p>
 <p>import java.io.InputStream;</p>
@@ -85,14 +174,32 @@ public DefaultSqlSessionFactory(InputStream inputStream) {
     this.configuration = parser.parse();  
 }  
 
-@Override 
+@Override
 public void test() {  
     //使用 configuration 完成相关功能  
 }  
 </code></pre>
-<p>}[/mw_shl_code]<br>
-测试一下<br>
-[mw_shl_code=java,true]package com.yefengyu.mybatis;</p>
+<p>}</p>
+<p>测试一下<br>
+[Java] 纯文本查看 复制代码<br>
+?<br>
+01<br>
+02<br>
+03<br>
+04<br>
+05<br>
+06<br>
+07<br>
+08<br>
+09<br>
+10<br>
+11<br>
+12<br>
+13<br>
+14<br>
+15<br>
+16<br>
+package com.yefengyu.mybatis;</p>
 <p>import org.apache.ibatis.io.Resources;</p>
 <p>import java.io.IOException;<br>
 import java.io.InputStream;</p>
@@ -103,12 +210,12 @@ InputStream inputStream = Resources.getResourceAsStream(resource);<br>
 SqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(inputStream);<br>
 sqlSessionFactory.test();<br>
 }</p>
-<p>}[/mw_shl_code]<br>
-这种方式也有一定的缺点<br>
+<p>}</p>
+<p>这种方式也有一定的缺点<br>
 就是首先如果有多个SSF实现的话，把 InputStream 转换为 Configuration的过程在每个构造函数都会有。</p>
 <p>上面的SSF指的是SqlSessionFactory<br>
 SSFB值得是SqlSessionFactoryBuilder</p>
-<p>请求批评指正[/b]</p>
+<p>请求批评指正</p>
 ]]></content>
     </entry>
 </feed>
