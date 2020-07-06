@@ -2,13 +2,30 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.kiwen.ga</id>
     <title>Kiwen&apos;s Blog</title>
-    <updated>2020-07-05T13:33:22.499Z</updated>
+    <updated>2020-07-06T00:53:19.972Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.kiwen.ga"/>
     <link rel="self" href="https://blog.kiwen.ga/atom.xml"/>
     <logo>https://blog.kiwen.ga/images/avatar.png</logo>
     <icon>https://blog.kiwen.ga/favicon.ico</icon>
     <rights>All rights reserved 2020, Kiwen&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[Finalshell 3.0.10 高级免安装版]]></title>
+        <id>https://blog.kiwen.ga/post/finalshell-3010-gao-ji-mian-an-zhuang-ban/</id>
+        <link href="https://blog.kiwen.ga/post/finalshell-3010-gao-ji-mian-an-zhuang-ban/">
+        </link>
+        <updated>2020-07-06T00:27:38.000Z</updated>
+        <content type="html"><![CDATA[<p>前几天刚发现Finalshell高级免安装版的软件</p>
+<p>压缩包解压就可以直接使用了，用了几天还不错<br>
+点击左侧两个区域可以查看自己的进程和服务器的延迟，下方区域可以上传和下载服务器的文件<br>
+Finalshell就等于xshell和FileZilla的结合版<br>
+<img src="https://blog.kiwen.ga/post-images/1593995337084.png" alt="" loading="lazy"><br>
+其余功能可自行探索</p>
+<figure data-type="image" tabindex="1"><img src="https://blog.kiwen.ga/post-images/1593995340826.png" alt="" loading="lazy"></figure>
+<p>想要解锁高级版直接点击左下角的升至高级版<br>
+下载链接     <a href="https://pcm4tco5qwrpswel2fln.sharepoint.com/:u:/s/movie/ESpb9qxshTlCqPjgQFmplnIBr_ICqG1k6zF7Ee3TV4Tolw?e=vHEp9o">下载</a></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[利用cf的works搭建在线代理]]></title>
         <id>https://blog.kiwen.ga/post/li-yong-cf-de-works-da-jian-zai-xian-dai-li/</id>
