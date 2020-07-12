@@ -2,13 +2,230 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.kiwen.ga</id>
     <title>Kiwen&apos;s Blog</title>
-    <updated>2020-07-12T05:43:32.652Z</updated>
+    <updated>2020-07-12T08:15:27.772Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.kiwen.ga"/>
     <link rel="self" href="https://blog.kiwen.ga/atom.xml"/>
     <logo>https://blog.kiwen.ga/images/avatar.png</logo>
     <icon>https://blog.kiwen.ga/favicon.ico</icon>
     <rights>All rights reserved 2020, Kiwen&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[Windows平台下使用 Rclone 挂载 OneDrive 为本地硬盘]]></title>
+        <id>https://blog.kiwen.ga/post/windows-ping-tai-xia-shi-yong-rclone-gua-zai-onedrive-wei-ben-di-ying-pan/</id>
+        <link href="https://blog.kiwen.ga/post/windows-ping-tai-xia-shi-yong-rclone-gua-zai-onedrive-wei-ben-di-ying-pan/">
+        </link>
+        <updated>2020-07-12T08:14:44.000Z</updated>
+        <content type="html"><![CDATA[<p>Rclone (rsync for cloud storage) 是一个命令行程序,用于同步文件和目录，支持常见的 Amazon Drive 、Google Drive 、OneDrive 、Dropbox 等云存储。本文将演示在 Windows 平台下将 OneDrive 挂载为本地硬盘，并使用跨平台的 Rclone GUI 连接到云盘。</p>
+<p>1、rclone下载地址<br>
+首先下载适用于 Windows 的 rclone 👇</p>
+<p>官网下载：https://rclone.org/downloads/<br>
+GitHub下载：https://github.com/ncw/rclone</p>
+<p>在rclone官网中，Windows 平台下选择下载 AMD64 - 64 Bit</p>
+<p>或者在github下载。</p>
+<p>下载后解压到一个英文路径中。</p>
+<p>另外在Windows平台使用rclone还需要另一个依赖工具winfsp，下载地址：http://www.secfs.net/winfsp/download/ ，下载后一路安装即可。</p>
+<p>2、为rclone配置环境变量<br>
+在电脑桌面右键点击“此电脑”的“属性”选项</p>
+<p>选择“高级系统设置”选项</p>
+<p>在系统变量中找到path，添加刚才解压后的路径</p>
+<p>3、检查rclone是否配置成功<br>
+按win+X，然后按A 打开 powershell ，当然也可以去打开 cmd ，输入rclone --version，如果出现下面的输出则安装成功，否则检查上面步骤的环境变量是否配置正确。</p>
+<p>4、开始配置rclone<br>
+在终端中依次输入以下命令行，请根据我下的步骤进操作。</p>
+<p>D:\AutoRclone&gt;rclone config                    // 第一步在终端输入 rclone config<br>
+Current remotes:<br>
+​<br>
+Name                 Type<br>
+====                 ====<br>
+OneDrive             onedrive<br>
+​<br>
+e) Edit existing remote<br>
+n) New remote<br>
+d) Delete remote<br>
+r) Rename remote<br>
+c) Copy remote<br>
+s) Set configuration password<br>
+q) Quit config<br>
+e/n/d/r/c/s/q&gt; n                          //第二步输入n创建新的配置，<br>
+​<br>
+name&gt; OneDrive_local                      //第三步 输入一个英文名称 ，中间也不要有空格<br>
+Type of storage to configure.<br>
+Enter a string value. Press Enter for the default (&quot;&quot;).<br>
+Choose a number from below, or type in your own value<br>
+1 / 1Fichier<br>
+\ &quot;fichier&quot;<br>
+2 / Alias for an existing remote<br>
+\ &quot;alias&quot;<br>
+3 / Amazon Drive<br>
+\ &quot;amazon cloud drive&quot;<br>
+4 / Amazon S3 Compliant Storage Provider (AWS, Alibaba, Ceph, Digital Ocean, Dreamhost, IBM COS, Minio, etc)<br>
+\ &quot;s3&quot;<br>
+5 / Backblaze B2<br>
+\ &quot;b2&quot;<br>
+6 / Box<br>
+\ &quot;box&quot;<br>
+7 / Cache a remote<br>
+\ &quot;cache&quot;<br>
+8 / Citrix Sharefile<br>
+\ &quot;sharefile&quot;<br>
+9 / Dropbox<br>
+\ &quot;dropbox&quot;<br>
+10 / Encrypt/Decrypt a remote<br>
+\ &quot;crypt&quot;<br>
+11 / FTP Connection<br>
+\ &quot;ftp&quot;<br>
+12 / Google Cloud Storage (this is not Google Drive)<br>
+\ &quot;google cloud storage&quot;<br>
+13 / Google Drive<br>
+\ &quot;drive&quot;<br>
+14 / Google Photos<br>
+\ &quot;google photos&quot;<br>
+15 / Hubic<br>
+\ &quot;hubic&quot;<br>
+16 / In memory object storage system.<br>
+\ &quot;memory&quot;<br>
+17 / JottaCloud<br>
+\ &quot;jottacloud&quot;<br>
+18 / Koofr<br>
+\ &quot;koofr&quot;<br>
+19 / Local Disk<br>
+\ &quot;local&quot;<br>
+20 / Mail.ru Cloud<br>
+\ &quot;mailru&quot;<br>
+21 / Mega<br>
+\ &quot;mega&quot;<br>
+22 / Microsoft Azure Blob Storage<br>
+\ &quot;azureblob&quot;<br>
+23 / Microsoft OneDrive<br>
+\ &quot;onedrive&quot;<br>
+24 / OpenDrive<br>
+\ &quot;opendrive&quot;<br>
+25 / Openstack Swift (Rackspace Cloud Files, Memset Memstore, OVH)<br>
+\ &quot;swift&quot;<br>
+26 / Pcloud<br>
+\ &quot;pcloud&quot;<br>
+27 / Put.io<br>
+\ &quot;putio&quot;<br>
+28 / QingCloud Object Storage<br>
+\ &quot;qingstor&quot;<br>
+29 / SSH/SFTP Connection<br>
+\ &quot;sftp&quot;<br>
+30 / Sugarsync<br>
+\ &quot;sugarsync&quot;<br>
+31 / Transparently chunk/split large files<br>
+\ &quot;chunker&quot;<br>
+32 / Union merges the contents of several remotes<br>
+\ &quot;union&quot;<br>
+33 / Webdav<br>
+\ &quot;webdav&quot;<br>
+34 / Yandex Disk<br>
+\ &quot;yandex&quot;<br>
+35 / http Connection<br>
+\ &quot;http&quot;<br>
+36 / premiumize.me<br>
+\ &quot;premiumizeme&quot;<br>
+Storage&gt; 23                             //第四步 输入要配置的网盘类型 因为我们要配置Microsoft OneDrive 因此输入23<br>
+** See help for onedrive backend at: https://rclone.org/onedrive/ **<br>
+​<br>
+Microsoft App Client Id<br>
+Leave blank normally.<br>
+Enter a string value. Press Enter for the default (&quot;&quot;).<br>
+client_id&gt;                              //第五步 直接回车<br>
+Microsoft App Client Secret<br>
+Leave blank normally.<br>
+Enter a string value. Press Enter for the default (&quot;&quot;).<br>
+client_secret&gt;                           //第六步 直接回车<br>
+Edit advanced config? (y/n)<br>
+y) Yes<br>
+n) No (default)<br>
+y/n&gt; n                                  //第七步 输入n 不进行高级配置<br>
+Remote config<br>
+Use auto config?</p>
+<ul>
+<li>Say Y if not sure</li>
+<li>Say N if you are working on a remote or headless machine<br>
+y) Yes (default)<br>
+n) No<br>
+y/n&gt; y                                  //第八步 输入y 使用自动配置授权<br>
+​<br>
+//输入y后会打开默认浏览器 登录Microsoft账号后 选择 是 即可<br>
+If your browser doesn't open automatically go to the following link: http://127.0.0.1:53682/auth?state=sUuYaGWtxruA81JiCokJGg<br>
+Log in and authorize rclone for access<br>
+Waiting for code...<br>
+Got code<br>
+Choose a number from below, or type in an existing value<br>
+1 / OneDrive Personal or Business<br>
+\ &quot;onedrive&quot;<br>
+2 / Root Sharepoint site<br>
+\ &quot;sharepoint&quot;<br>
+3 / Type in driveID<br>
+\ &quot;driveid&quot;<br>
+4 / Type in SiteID<br>
+\ &quot;siteid&quot;<br>
+5 / Search a Sharepoint site<br>
+\ &quot;search&quot;<br>
+Your choice&gt;1                            //第九步 输入1 因为现在我配置的是 OneDrive Personal or Business 类型的网盘<br>
+​<br>
+Found 1 drives, please select the one you want to use:<br>
+0: OneDrive (business) id=b!qDQvcsZUTU-8eoYyKmtyyP1Jc0D8urZLlkATnfH1nWdJ1kkbrLsvQZLzVUTpeTrc<br>
+Chose drive to use:&gt; 0              //第十步 输入0<br>
+Found drive 'root' of type 'business', URL: https://pmjs-my.sharepoint.com/personal/wld_365_w/Documents<br>
+Is that okay?<br>
+y) Yes (default)<br>
+n) No<br>
+y/n&gt; y                               //第十一步 输入y</li>
+</ul>
+<hr>
+<h2 id="onedrive_localtype-onedrivetoken-access_tokeneyj0exaioiv1qilcjub25jzsi6imnryjl5tdnzwe8yczdqd2n2wtljrkv1zxp0qvpzzv83qwppahzortu0otgilcjhbgcioijsuzi1niising1dci6ikhsqzbsmtjza3howjfxuxdtak9gxzz0x3rersisimtpzci6ikhsqzbsmtjza3howjfxuxdtak9gxzz0x3rersj9yjhdwqioiiwmdawmdawmy0wmdawltawmdatyzawmc0wmdawmdawmdawmdailcjpc3mioijodhrwczovl3n0cy53aw5kb3dzlm5ldc84n2vjymixyi0wztdlltrlmdctowfimc00nwiwotm1otfjn2eviiwiawf0ijoxntgxmzaxnlcjuymyioje1odezmde2mzasimv4cci6mtu4mtmwntuzmcwiywnjdci6mcwiywnyijoimsisimfpbyi6ikftuuylzhpqufbqwc2euruazjnkzz5yjvlnejsn2vur0lht3evsxfpt0dszzlpwitrreoyatg9iiwiyw1yijpbinb3zcjdlcjhchbfzglzcgxhew5hbwuioijyy2xvbmuilcjhchbpzci6imixnty2nwq5lwvkytytnda5mi04ntm5ltblzwmznzzhzmq1osisimfwcglkywnyijoimsisimzhbwlsev9uyw1lijoiv2fuzyisimdpdmvux25hbwuioijyawfud2iwiaxbhzgryijoimzkumti4ljiwmc4iwibmftzsi6ildhbmdyawfud2vuiiwib2lkijoizwe4zjnjzdctn2ixys00ymq0lwfinzityzm4ndg4nte5nddhdgyioiiziiwichvpzci6ijewmdmzrkzgquvgnee2rtuilcjzy3a5ywiwltq1yja5mzu5mwm3ysisinvuaxf1zv9uyw1lijoid29ybgrabxkznjuudhcilcj1cg4ioij3b3jszebtetm2ns50dyisinv0asi6il85mezwrxbzctbtyzckfuvdluqueilcj2zxiioiixljailcj4bxnfc3qionsic3viijoidxlwwu96ugf5rvbvwxlsbflevel6qjhuzvbkznntmkvhchczngndm2jrtsj9lcj4bxnfdgnkdci6mtuzndqyotu0nh0ki9vor6ntxxjwsdumyddz8agrzvyxrcxvg0paw7xqdtq8i_vht8gk79f0f7xp3bskzk5xgxb0gzwpv9dptb4iixm0d17p5pqb3whlmubvfvrblxnwsetsjgklttvxl8xft8e51k4kyyh07ctozvbsf6fmmnhftp9zbcevrgnfkdwte5in83g05v7l8wdcmikrn0kx9itkzxt9em5qtvhgzrzjdnns2pjtqnhiwvatjdb4vhojg2c6j1ltu6yoooam2ubil2ovlfhqpy0l299zjtjeyqclqgjki9kzgavi42igp4mzvvpqajk5oad_4npst87qvh4nbatoken_typebearerrefresh_tokenoaqabaaaaaabeafzdwllztygdlh_qybh8falkpbpcm5pzqagakunwfik3mz2zfdpeowww9q5mlfohsqyyng8fayvzxxzeugqwuar520muj5i_mj9cns0nahnojatvzobv459vlmkaniyk9gjigvdde4rkav472hbq_po8k47yc053blribrji9wfscksmj8up792snj0tm9ptfpmy1ap_tepx8dowac9qzn2jdixjdjwjcvfdesndwxam9bpbp1ozmoblr85ekb9vgsz7cczibkea16aiqb67xsqicg8azjmli76njvfx1sb3rrc2rxsdcnvtx_oja_6kuauxqjhgi1xah1kk_c82iniwdj7edhcbokk8eewyfyn4tbtl0xw8rwmopdvvuvmva7z8ph0ab66ih5evrosehsv072aydwswhfremueteegp5ja1absoxe2ddw3pysehffbypsh0av3qpvp9lahagizebft9rekl1r1bcmrehxf9gjnvb5pchrk_abttev2ywkwrtaefjbtp40f96kcxzgmae4rauomi7hkw4clqrhuv5yczq_bqrj7r5pouyelgpdvnw42lb8mvekksdrjavnluttgvklbpn9auuod2luz5a8ihewalkhlxfuqjpg0uxjtliaaexpiry2020-02-10t1132108526460800drive_id-bqdvcszutu8eoyykmtyyp1jc0d8urzllktnh1nwdj1kbrlsvqzlzvutpetrcdrive_type-business">[OneDrive_local]<br>
+type = onedrive<br>
+token = {&quot;access_token&quot;:&quot;eyJ0eXAiOiV1QiLCJub25jZSI6ImNRYjl5TDNZWE8yczdQd2N2WTlJRkV1ZXp0QVpZZV83QWpPaHZORTU0OTgiLCJhbGciOiJSUzI1NiIsIng1dCI6IkhsQzBSMTJza3hOWjFXUXdtak9GXzZ0X3RERSIsImtpZCI6IkhsQzBSMTJza3hOWjFXUXdtak9GXzZ0X3RERSJ9yJhdWQiOiIwMDAwMDAwMy0wMDAwLTAwMDAtYzAwMC0wMDAwMDAwMDAwMDAiLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC84N2VjYmIxYi0wZTdlLTRlMDctOWFiMC00NWIwOTM1OTFjN2EvIiwiaWF0IjoxNTgxMzAxNLCJuYmYiOjE1ODEzMDE2MzAsImV4cCI6MTU4MTMwNTUzMCwiYWNjdCI6MCwiYWNyIjoiMSIsImFpbyI6IkFTUUyLzhPQUFBQWc2eURUazJNKzZ5YjVLNEJSN2VUR0lHT3EvSXFPT0dSZzlPWitrREoyaTg9IiwiYW1yIjpbInB3ZCJdLCJhcHBfZGlzcGxheW5hbWUiOiJyY2xvbmUiLCJhcHBpZCI6ImIxNTY2NWQ5LWVkYTYtNDA5Mi04NTM5LTBlZWMzNzZhZmQ1OSIsImFwcGlkYWNyIjoiMSIsImZhbWlseV9uYW1lIjoiV2FuZyIsImdpdmVuX25hbWUiOiJYaWFud2iwiaXBhZGRyIjoiMzkuMTI4LjIwMC4iwibmFtZSI6IldhbmdYaWFud2VuIiwib2lkIjoiZWE4ZjNjZDctN2IxYS00YmQ0LWFiNzItYzM4NDg4NTE5NDdhdGYiOiIzIiwicHVpZCI6IjEwMDMzRkZGQUVGNEE2RTUiLCJzY3A5YWIwLTQ1YjA5MzU5MWM3YSIsInVuaXF1ZV9uYW1lIjoid29ybGRAbXkzNjUudHciLCJ1cG4iOiJ3b3JsZEBteTM2NS50dyIsInV0aSI6Il85MEZWRXBZcTBTYzckFuVDluQUEiLCJ2ZXIiOiIxLjAiLCJ4bXNfc3QiOnsic3ViIjoidXlWWU96UGF5RVBVWXlSbFlEVEl6QjhUZVBkZnNTMkVHcHczNGNDM2JRTSJ9LCJ4bXNfdGNkdCI6MTUzNDQyOTU0NH0.Ki9vor6NtxXJWsdumYddz8agrzVYXRCXVg0paW7XqDTq8i_vht8GK79F0F7xp3BSKzK5Xgxb0GzwPV9dPTb4IiXM0d17P5pQB3wHLMUbVFvRbLXNwSEtSJGKLttvxL8XfT8e51k4kyyH07CtozVBsF6fmMnhftp9ZbcEVrgnFKdwTE5In83G05V7L8wDCMiKrN0KX9iTKzxT9em5QtVhGZRZJDnNS2pJTQNhiWVatjDB4VHojG2C6J1LtU6YOOOAM2uBil2ovLFhQPy0l299ZJTJeyQCLQGJki9kZgAVI42iGP4mzvVPQAJk5Oad_4nPsT87QVH4NBA&quot;,&quot;token_type&quot;:&quot;Bearer&quot;,&quot;refresh_token&quot;:&quot;OAQABAAAAAABeAFzDwllzTYGDLh_qYbH8falkpBpCm5PZqagAkUNWFik3Mz2ZfDPeowwW9q5mlFoHSqyYNG8FayvZxxZEUGQWUaR520MuJ5i_mj9CNs0NahNOJAtvZOBV459VLMKaNiyK9GJIGvdDe4RkaV472hbq_po8K47yC053BLRIbRji9WfsCkSMj8UP792sNJ0Tm9ptfPmy1aP_TePX8dOWaC9qZN2jDIXJDjWjCvfDesNDWXAm9bpBp1oZmObLR85EKB9Vgsz7ccZIbKEa16Aiqb67xsQICG8AzjMli76nJVFx1SB3rRc2rxSDcnVTx_Oja_6KuaUxQjhgi1XaH1Kk_c82iniwdj7EdHCbokk8eewYFyn4tBTL0xW8rwmoPDvvUvMVA7Z8Ph0AB66Ih5evroSEHsv072AyDWSwHfrEMueTeEgP5jA1aBSOXE2DDw3PySehFfbYpsh0AV3qPVP9lAHaGizEbFt9rEKl1R1bcMrEhxF9GjnvB5PChRK_abttEV2YWKWrTaEFJBTP40f96kCXZGMaE4RaUoMI7hKW4cLQrHuV5YCZQ_BQRj7r5PoUyelGPdvnW42lB8MvekksdrJAVnlUTTgVKlbpn9AUuOD2LUZ5A8IheWaLkhLXfUqjPg0UxjTLIAA&quot;,&quot;expiry&quot;:&quot;2020-02-10T11:32:10.852646+08:00&quot;}<br>
+drive_id = b!qDvcsZUTU8eoYyKmtyyP1Jc0D8urZLlkTnH1nWdJ1kbrLsvQZLzVUTpeTrc<br>
+drive_type = business</h2>
+<p>y) Yes this is OK (default)<br>
+e) Edit this remote<br>
+d) Delete this remote<br>
+y/e/d&gt;y                                      //第十二步 输入y<br>
+​</p>
+<p>此时，就会出现刚刚配置好的网盘名称了</p>
+<p>e) Edit existing remote<br>
+n) New remote<br>
+d) Delete remote<br>
+r) Rename remote<br>
+c) Copy remote<br>
+s) Set configuration password<br>
+q) Quit config<br>
+e/n/d/r/c/s/q&gt; q                //最后输入q退出配置即可<br>
+在 C:\Users\你的用户名.config\rclone文件夹下就可以看见配置文件 rclone.conf 啦。</p>
+<p>5、挂载OneDrive为本地硬盘<br>
+此时请使用 git bash 的终端执行以下命令，因为我使用cmd 和 powershell 都出现关闭终端后挂载程序退出、本地挂载的OneDrive退出的现象。 如果你的windows没有安装git ， 请自行安装。若你使用 cmd 的话 ，cmd 是不能退出的，要保持 cmd 不退出本地硬盘才一直挂载着。</p>
+<p>在 git bash 中输入以下挂载命令：</p>
+<p>rclone mount OneDrive_local:/  Q: --cache-dir E:\OneDrive --vfs-cache-mode writes &amp;<br>
+其中：</p>
+<p>OneDrive_loca 替换为你自己前面设置的名称 。</p>
+<p>Q: 替换为你想要挂载后硬盘的盘符名称即可，记得不要和本地的C盘、D盘等重复。</p>
+<p>E:\OneDrive 为本地缓存目录，可自行设置 。</p>
+<p>出现：The service rclone has been started 则说明挂载成功。</p>
+<p>然后输入 exit 退出终端即可。</p>
+<p>然后就可以看见本地多了一个盘，往里面复制文件就是上传，从里面复制文件到其它盘就是下载。</p>
+<p>6、设置开机自启动挂载<br>
+创建一个名称为 startup_rclone.bat 的文件，里面填写上面的挂载命令：</p>
+<p>rclone mount OneDrive_local:/  Q: --cache-dir E:\OneDrive --vfs-cache-mode writes &amp;<br>
+将这个文件放在C:\Users\用户名\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup 中</p>
+<p>重启计算机后就会自动挂设置的云盘了，当然这样做由于调用的是 cmd 因此还是不能关闭运行的 cmd。下面介绍一种利用 Rclone GUI 的进行管理的使用方法。</p>
+<p>7、可视化上传下载 RcloneBrowser<br>
+在 https://github.com/kapitainsky/RcloneBrowser/releases中下载 RcloneBrowser 。</p>
+<p>下载好后进行安装，然后进行配置。配置 rclone.exe的路径还有 rclone.conf 配置文件的路径。</p>
+<p>这是我前面解压rclon的路径以及配置文件的路径<br>
+配置好后就可以看见前面配置的 OneDrive 网盘了 ☁️</p>
+<p>双击打开就可以看见里面的内容了，可以去愉快的上传或者下载了。</p>
+<p>上传的话，选择要上传的文件或文件夹以及云盘的存放路径，再选择 copy 模式，点击 run 即可。下载与之类似。</p>
+<p>在 Jobs当中还可以查看任务的进度、速度等。</p>
+<p>另外还可以设置代理，见下图：</p>
+<p>这样挂载谷歌云端硬盘就很方便了。</p>
+<p>如果你觉得rclone 太麻烦，还可以试试 RaiDrive 挂载，安装后选择相应的网盘登录即可，但我用起来感觉比较卡顿。 不推荐了，2020年3月份收到邮件说挂载 Onedrive 、Google Derive 要收费了，无奈🙃</p>
+<p>https://www.raidrive.com/</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Finalshell 3.0.10 高级免安装版]]></title>
         <id>https://blog.kiwen.ga/post/finalshell-3010-gao-ji-mian-an-zhuang-ban/</id>
