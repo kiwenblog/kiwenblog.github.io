@@ -1,107 +1,342 @@
+<!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<head>
+  <meta charset="UTF-8" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="keywords" content="Gridea静态个人博客">
+<meta name="description" content="">
+<meta name="theme-color" content="#000">
 <title>利用cf的works搭建在线代理 | Kiwen&#39;s Blog</title>
-<meta name="description" content="" />
-<link rel="shortcut icon" href="https://blog.kiwen.ga/favicon.ico">
-<link rel="stylesheet" href="https://blog.kiwen.ga/styles/main.css">
+<link rel="shortcut icon" href="/favicon.ico?v=1594532455558">
+<link rel="stylesheet" href="/media/css/pisces.css">
+<link rel="stylesheet" href="/media/fonts/font-awesome.css">
+<link
+  href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Rosario:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext"
+  rel="stylesheet" type="text/css">
 
-<script src="https://blog.kiwen.ga/media/js/jquery.min.js"></script>
-<script src="https://blog.kiwen.ga/media/js/masonry.pkgd.min.js"></script>
-<script src="https://blog.kiwen.ga/media/js/aos.js"></script>
-<script src="https://blog.kiwen.ga/media/js/pace.min.js"></script>
-<script src="https://blog.kiwen.ga/media/js/view-image.min.js"></script>
-<script src="https://blog.kiwen.ga/media/js/jquery.magnific-popup.min.js"></script>
-<script src="https://blog.kiwen.ga/media/js/functions.js"></script>
-    <meta name="referrer" content="never">
-    <meta name="description" content="开源地址https://github.com/EtherDream/jsproxy/blob/master/cf-worker/index.js
-搭建方法
-使用 CloudFlare Worker 免费部署
-简介
-CloudFlare Wo..." />
-    <meta name="keywords" content="" />
-    <script src="https://blog.kiwen.ga/media/js/waterfall.min.js"></script>
-    <script src="https://blog.kiwen.ga/media/js/prism.min.js"></script>
-  </head>
-  <body>
-            <header id="header" class="grid-container">
-        <!-- start: .menu-wrapper -->
-        <div class="menu-mobile"> 
-          <i class="fa fa-reorder"></i>
-        </div>
-        <div class="menu-wrapper">
-          <div class="">
-            <div class="logo">
-              <a href="https://blog.kiwen.ga"><img src="" alt=""></a>
-            </div>
-            <!-- start: .main-nav -->
+<link href="/media/hljs/styles/androidstudio.css"
+  rel="stylesheet">
 
-            <nav class="main-nav grid-container grid-parent">
-              <ul id="menu-header" class="menu gradient-effect">
-                <li class=""><a href="https://blog.kiwen.ga" class="menu">首页</a></li>
-                
-                  <li class="" >
-                    <a href="https://blog.kiwen.ga" class="menu">
-                      博客
-                    </a>
-                  </li>
-                
-                  <li class="" >
-                    <a href="http://tuchuang.kiwen.ga/" class="menu">
-                      图床
-                    </a>
-                  </li>
-                
-                <li class="search-menu-item hide-on-mobile hide-on-tablet"><a href="#search-lightbox" class="lightbox mfp-inline"><i class="fa fa-search-line"></i></a></li>
-              </ul>
-            </nav>
-            <a href="#search-lightbox" class="lightbox epcl-search-button mfp-inline hide-on-tablet hide-on-desktop"><i class="fa fa-search-line"></i></a>
-            <!-- end: .main-nav -->
-            <div class="clear"></div>
-            <div class="border hide-on-tablet hide-on-mobile"></div>
-          </div>    
-          <div class="clear"></div>
-        </div>
-        <!-- end: .menu-wrapper -->
-        <div class="clear"></div>
-      </header>
-      <div class="hide-on-mobile hide-on-tablet hide-on-desktop">
-        <div id="search-lightbox" class="grid-container grid-small grid-parent mfp-hide">
-          <div class="search-wrapper section">
-            <form id="gridea-search-form" data-update="1594528365621" action="/search/index.html" class="search-form" _lpchecked="1">
-              <input type="text" name="q" id="s" value="" class="search-field" placeholder="搜点啥..." aria-label="搜点啥..." required="">
-              <button type="submit" class="submit" aria-label="Submit">
-                <i class="fa fa-search-line"></i>
-              </button>
-            </form>
-          </div>
+<link rel="stylesheet" href="/styles/main.css">
+
+<script src="/media/hljs/highlight.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.0/velocity.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.0/velocity.ui.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"
+  integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"
+  integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"
+  integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+  onload="renderMathInElement(document.body);"></script>
+
+
+
+
+<script>
+  var _hmt = _hmt || [];
+  (function () {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?c514cd17244ffad0a406333fbee9e31d";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+  <meta name="description" content="利用cf的works搭建在线代理" />
+  <meta name="keywords" content="" />
+</head>
+
+<body>
+  <div class="head-top-line"></div>
+  <div class="header-box">
+    
+<div class="pisces">
+  <header class="header  ">
+    <div class="blog-header box-shadow-wrapper bg-color " id="header">
+      <div class="nav-toggle" id="nav_toggle">
+        <div class="toggle-box">
+          <div class="line line-top"></div>
+          <div class="line line-center"></div>
+          <div class="line line-bottom"></div>
         </div>
       </div>
-
-      <main id="single" class="main grid-container fullcover no-sidebar aos-init aos-animate" data-aos="fade">
-
-        <div class="center content">
-          <div class="featured-image cover" style="background-image: url('');">
-            <div class="meta top"> 
-              <time class="meta-info" style="float:left;" datetime="2020-07-05"><i class="fa fa-calendar"></i><span class="lately">7 天前</span></time>
+      <div class="site-meta">       
+        <div class="site-title">
+          
+            <a href="/" class="brand">
+              <span>Kiwen&#39;s Blog</span>
+            </a>  
+          
+        </div>
+        
+          <p class="subtitle">kiwen的博客</p>
+        
+      </div>
+      <nav class="site-nav" id="site_nav">
+        <ul id="nav_ul">
+          
+            
+            
               
-            </div>
-            <div class="info">
-              <div class="tags ">
-                
-              </div>
-              <h1 class="title ularge white bold">利用cf的works搭建在线代理</h1>
-            </div>
-          </div>
-        </div>  
+            
+            <li class="nav-item ">
+              
+              
+                <a href="https://blog.kiwen.ga/" target="_self">
+                  <i class="fa fa-globe"></i> 博客
+                </a>
+              
+            </li>
+          
+            
+            
+              
+            
+            <li class="nav-item ">
+              
+              
+                <a href="http://tuchuang.kiwen.ga//" target="_self">
+                  <i class="fa fa-globe"></i> 图床
+                </a>
+              
+            </li>
+          
+          
+            
+              <li class="nav-item ">
+                <a href="/friends/" target="_self">
+                  
+                    <i class="fa fa-address-book"></i> 友情链接
+                  
+                </a>
+              </li>
+            
+          
+          
+            <li id="fa_search" class="nav-item">
+              <a href="javascript:void(0);">
+                <i class="fa fa-search"></i> <span class="language" data-lan="search">搜索</span>
+              </a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </header>
+</div>
 
-        <div class="epcl-page-wrapper">
-          <div class="left-content grid-70 np-mobile">
-            <article class="main-article post">
-              <section class="post-content">
-                <div class="text">
-                  <p>开源地址https://github.com/EtherDream/jsproxy/blob/master/cf-worker/index.js<br>
+<script type="text/javascript"> 
+ 
+  let showNav = true;
+
+  let navToggle = document.querySelector('#nav_toggle'),
+  siteNav = document.querySelector('#site_nav');
+  
+  function navClick() {
+    let sideBar = document.querySelector('.sidebar');
+    let navUl = document.querySelector('#nav_ul');
+    navToggle.classList.toggle('nav-toggle-active');
+    siteNav.classList.toggle('nav-menu-active');
+    if (siteNav.classList.contains('nav-menu-active')) {
+      siteNav.style = "height: " + (navUl.children.length * 42) +"px !important";
+    } else {
+      siteNav.style = "";
+    }
+  }
+
+  navToggle.addEventListener('click',navClick);  
+</script>
+  </div>
+  <div class="main-continer">
+    
+    <div
+      class="section-layout pisces ">
+      <div class="section-layout-wrapper">
+        
+
+<div class="sidebar">
+  
+    <div class="sidebar-box box-shadow-wrapper bg-color right-motion" id="sidebar">
+      
+        <div class="post-list-sidebar">
+          <div class="sidebar-title">
+            <span id="tocSideBar" class="sidebar-title-item sidebar-title-active language" data-lan="index">文章目录</span>
+            <span id="metaSideBar" class="sidebar-title-item language" data-lan="preview">站点概览</span>
+          </div>
+        </div>
+      
+      <div class="sidebar-body pisces" id="sidebar_body">
+        
+          
+            
+<div class="sidebar-wrapper box-shadow-wrapper bg-color">
+  <div class="sidebar-item">
+    <img class="site-author-image right-motion" src="/images/avatar.png"/>
+    <p class="site-author-name">kiwen</p>
+    
+  </div>
+  <div class="sidebar-item side-item-stat right-motion">
+    <div class="sidebar-item-box">
+      <a href="/archives/">
+        
+        <span class="site-item-stat-count">3</span>
+        <span class="site-item-stat-name language" data-lan="article">文章</span>
+      </a>
+    </div>
+    <div class="sidebar-item-box">
+      <a href="">
+        <span class="site-item-stat-count">0</span>
+        <span class="site-item-stat-name language" data-lan="category">分类</span>
+      </a>
+    </div>
+    <div class="sidebar-item-box">
+      <a href="/tags/">
+        <span class="site-item-stat-count">0</span>
+        <span class="site-item-stat-name language" data-lan="tag">标签</span>
+      </a>
+    </div>
+  </div>
+  
+    
+  
+  
+
+
+
+  <div style="width: 100%; position: relative;">
+    <canvas id="canvasDiyBlock" style="width:100%;">当前浏览器不支持canvas，请更换浏览器后再试</canvas>
+    <script src="/media/js/magic/clock.js"></script>
+  </div>
+
+</div>
+          
+        
+      </div>
+    </div>
+  
+</div>
+<script>
+  const SIDEBAR_TITLE_ACTIVE = 'sidebar-title-active';
+  const SIDEBAR_BODY_ACTIVE = 'sidebar-body-active';
+  const SLIDE_UP_IN = 'slide-up-in';
+
+  let sidebar = document.querySelector('#sidebar'),
+  tocSideBar = document.querySelector('#tocSideBar'),
+  metaSideBar = document.querySelector('#metaSideBar'),
+  postToc = document.querySelector('#post_toc'),
+  postSiteMeta = document.querySelector('#post_side_meta'),
+  sidebarTitle = document.querySelector('.sidebar-title'),
+  sidebarBody = document.querySelector('#sidebar_body');
+
+  tocSideBar && tocSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  metaSideBar && metaSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  function toggleSidebar(e) {
+    let currentTitle = document.querySelector("."+SIDEBAR_TITLE_ACTIVE);
+    if (currentTitle == e.srcElement) {
+      return ;
+    }
+    let current, showElement, hideElement;
+    if (e.srcElement == metaSideBar) {
+      showElement = postSiteMeta;
+      hideElement = postToc;
+    } else if (e.srcElement == tocSideBar){
+      showElement = postToc;
+      hideElement = postSiteMeta;
+    }
+    currentTitle.classList.remove(SIDEBAR_TITLE_ACTIVE);
+    e.srcElement.classList.add(SIDEBAR_TITLE_ACTIVE);
+
+    window.Velocity(hideElement, 'stop');
+    window.Velocity(hideElement, 'transition.slideUpOut', {
+      display: 'none',
+      duration: 200,
+      complete: function () {
+        window.Velocity(showElement, 'transition.slideDownIn', {
+          duration: 200
+        });
+      }
+    })
+    hideElement.classList.remove(SIDEBAR_BODY_ACTIVE);
+    showElement.classList.add(SIDEBAR_BODY_ACTIVE);
+  }
+
+  postToc && postToc.addEventListener('transitionend', function() {
+    this.classList.remove(SLIDE_UP_IN);
+  });
+
+  if (sidebarBody) {
+    if (sidebarBody.classList.contains('pisces') || sidebarBody.classList.contains('gemini')) {
+      let hasFix = false;
+      let scrollEl = document.querySelector('.main-continer');
+      let limitTop = document.querySelector('#nav_ul').children.length * 42 + 162;
+      window.addEventListener('scroll', function(e) {
+        if (document.scrollingElement.scrollTop >= limitTop) {
+          if (!hasFix) {
+            sidebar.classList.add('sidebar-fixed');
+            hasFix = true;
+          }
+        } else {
+          if (hasFix) {
+            sidebar.classList.remove('sidebar-fixed');
+            hasFix = false;
+          }
+        }
+      });
+    }
+  }
+  
+</script>
+        <div class="section-box box-shadow-wrapper">
+          <div class="section bg-color post post-page">
+            <header class="post-header">
+  <h1 class="post-title">
+    <a class="post-title-link" href="https://blog.kiwen.ga/post/li-yong-cf-de-works-da-jian-zai-xian-dai-li/">
+      利用cf的works搭建在线代理
+    </a>
+  </h1>
+  <div class="post-meta">
+    
+    <span class="meta-item pc-show">
+      <i class="fa fa-calendar-o"></i>
+      <span class="language" data-lan="publish">发布于</span>
+      <span>2020-07-05</span>
+      <span class="post-meta-divider pc-show">|</span>
+    </span>
+    
+    <span class="meta-item">
+      <i class="fa fa-clock-o"></i>
+      <span>2<span class="language" data-lan="minute">分钟</span></span>
+    </span>
+    <span class="meta-item">
+      <span class="post-meta-divider">|</span>
+      <i class="fa fa-file-word-o"></i>
+      <span>319<span class="pc-show language" data-lan="words">字数</span></span>
+    </span>
+    
+    
+    
+    <span id="/post/li-yong-cf-de-works-da-jian-zai-xian-dai-li/" data-flag-title="利用cf的works搭建在线代理" class="meta-item pc-show leancloud_visitors">
+      <span class="post-meta-divider">|</span>
+      <i class="fa fa-eye"></i>
+      <span><span class="language" data-lan="view">浏览量</span>：<span class="leancloud-visitors-count"></span></span>
+    </span>
+    
+  </div>
+</header>
+            <div class="post-body next-md-body" id="post_body">
+              <p>开源地址https://github.com/EtherDream/jsproxy/blob/master/cf-worker/index.js<br>
 搭建方法<br>
 使用 CloudFlare Worker 免费部署</p>
 <p>简介<br>
@@ -121,177 +356,1017 @@ WebSocket 代理尚未实现</p>
 <p>外链限制尚未实现</p>
 <p>未充分测试，以后再完善</p>
 
-                </div>
-                <div class="clear"></div>
-              </section>
-            </article>
-            <div class="clear"></div>
-
-            <section class="related section">
-              
-              <article class="prev grid-50 tablet-grid-50 grid-parent">
-                <div class="thumb cover lazy loaded" style="background-image: url('https://blog.kiwen.ga/media/images/gridea.jpg');"></div>
-                 <a href="https://blog.kiwen.ga/post/finalshell-3010-gao-ji-mian-an-zhuang-ban/" class="full-link"></a>
-                 <div class="info">
-                  <time datetime="2020-07-06">2020-07-06</time>
-                  <h4 class="title white no-margin">Finalshell 3.0.10 高级免安装版</h4>
-                </div>
-                 <span class="epcl-button red">
-                  <img src="https://blog.kiwen.ga/media/images/left-arrow.svg" width="15" alt="Left Arrow">
-                </span>
-                <div class="overlay"></div>
-              </article>
-              
-              
-              <article class="next grid-50 tablet-grid-50 grid-parent">
-                <div class="thumb cover lazy loaded" style="background-image: url('https://blog.kiwen.ga/media/images/gridea.jpg');"></div>
-                 <a href="https://blog.kiwen.ga/post/ssf-gou-jian-guo-cheng/" class="full-link"></a>
-                 <div class="info">
-                  <time datetime="2020-07-05">2020-07-05</time>
-                  <h4 class="title white no-margin">SSF构建过程</h4>
-                </div>
-                 <span class="epcl-button red">
-                  <img src="https://blog.kiwen.ga/media/images/right-arrow.svg" width="15" alt="Left Arrow">
-                </span>
-                <div class="overlay"></div>
-              </article>
-              
-
-                <div class="clear"></div>
-            </section>
-
-              <div class="clear"></div>
-              
-            
-              <div id="comments" class="bg-white hosted ">
-                <p>请到客户端“主题--自定义配置--valine”中填入ID和KEY</p>
-              </div>
-              <div class="clear"></div>
-            
-
             </div>
-          </div>
-      </main>
-
-          <footer id="footer" class="grid-container">
-        <div class="widgets row gradient-effect">
-            <div class="default-sidebar border-effect">
-              <div class="grid-33 tablet-grid-50 mobile-grid-100">
-                <section id="tag_cloud-2" class="widget widget_epcl_posts_thumbs underline-effect">
-                  <h4 class="widget-title title white bordered">最新文章</h4>
-                  
-                  
-                  <article class="item post-0 post type-post status-publish format-standard has-post-thumbnail hentry">
-                    <a href="https://blog.kiwen.ga/post/finalshell-3010-gao-ji-mian-an-zhuang-ban/" class="thumb hover-effect">
-                      <span class="fullimage cover" style="display:block;border-radius:50%;background-image: url('');"></span>
-                    </a>
-                    <div class="info gradient-effect">
-                      <time datetime="2020-07-06">2020-07-06</time>
-                      <h4 class="title usmall">
-                        <a href="https://blog.kiwen.ga/post/finalshell-3010-gao-ji-mian-an-zhuang-ban/">Finalshell 3.0.10 高级免安装版</a>
-                      </h4>
-                    </div>
-                    <div class="clear"></div>
-                  </article>
-                  
-                  
-                  
-                  <article class="item post-1 post type-post status-publish format-standard has-post-thumbnail hentry">
-                    <a href="https://blog.kiwen.ga/post/li-yong-cf-de-works-da-jian-zai-xian-dai-li/" class="thumb hover-effect">
-                      <span class="fullimage cover" style="display:block;border-radius:50%;background-image: url('');"></span>
-                    </a>
-                    <div class="info gradient-effect">
-                      <time datetime="2020-07-05">2020-07-05</time>
-                      <h4 class="title usmall">
-                        <a href="https://blog.kiwen.ga/post/li-yong-cf-de-works-da-jian-zai-xian-dai-li/">利用cf的works搭建在线代理</a>
-                      </h4>
-                    </div>
-                    <div class="clear"></div>
-                  </article>
-                  
-                  
-                  
-                  <article class="item post-2 post type-post status-publish format-standard has-post-thumbnail hentry">
-                    <a href="https://blog.kiwen.ga/post/ssf-gou-jian-guo-cheng/" class="thumb hover-effect">
-                      <span class="fullimage cover" style="display:block;border-radius:50%;background-image: url('');"></span>
-                    </a>
-                    <div class="info gradient-effect">
-                      <time datetime="2020-07-05">2020-07-05</time>
-                      <h4 class="title usmall">
-                        <a href="https://blog.kiwen.ga/post/ssf-gou-jian-guo-cheng/">SSF构建过程</a>
-                      </h4>
-                    </div>
-                    <div class="clear"></div>
-                  </article>
-                  
-                  
-                  <div class="clear"></div>
-                </section>
-              </div>
-
-              <div class="grid-33 tablet-grid-50 mobile-grid-100">
-                <section id="tag_cloud-2" class="widget widget_tag_cloud underline-effect">
-                  <h4 class="widget-title title white bordered">标签云</h4>
-                  <div class="tagcloud">
-                    
-                  </div>
-                  <div class="clear"></div>
-                </section>
-              </div>
-
-              <div class="grid-33 tablet-grid-50 mobile-grid-100">
-                <section id="epcl_about-2" class="widget widget_epcl_about underline-effect">
-                  <h4 class="widget-title title white bordered">关于我</h4>
-                  <div class="avatar">
-                    <a href="" class="translate-effect thumb"><span class="fullimage cover" style="background-image: url(https://blog.kiwen.ga/images/avatar.png);"></span></a>
-                  </div>
-                  <div class="info">
-                    <h4 class="title small author-name gradient-effect no-margin"><a href="">Kiwen&#39;s Blog</a></h4>
-                    <p class="founder"></p>
-                    <div class="social">
-                      
-                        
-                      
-                        
-                      
-                        
-                      
-                        
-                      
-                        
-                      
-                    </div> 
-                  </div>
-                  <div class="clear"></div>
-                  </section>
-              </div>
-
-            </div>
-            <div class="clear"></div>
-        </div>
-
-        <div class="logo">
-          <a href="https://blog.kiwen.ga"><img src="" alt=""></a>
-        </div>
-        <p class="published border-effect">
-          ©2019 共 3 篇文章
-          <br/>
-          Theme <a href="https://gridea.dev/" target="_blank">「breek」</a> Powered by <a href="https://gridea.dev/" target="_blank">「Gridea」</a>
-        </p>
-        
-        <a href="javascript:void(0)" id="back-to-top" class="epcl-button dark" style="display:none">
-          <i class="fa fa-arrow"></i>
-        </a>
-    </footer>
+            
+            
+              <div class="post-footer">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong class="language" data-lan="author">本文作者：</strong>
+      kiwen
+    </li>
+    <li class="post-copyright-link">
+      <strong class="language" data-lan="link">本文链接：</strong>
+      <a href="https://blog.kiwen.ga/post/li-yong-cf-de-works-da-jian-zai-xian-dai-li/" title="利用cf的works搭建在线代理">https://blog.kiwen.ga/post/li-yong-cf-de-works-da-jian-zai-xian-dai-li/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong class="language" data-lan="copyright">版权声明： </strong>
+      本博客所有文章除特别声明外，均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i> BY-NC-SA</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+  <div class="tags">
     
-    <div class="clear"></div>
-
-        
-
+  </div>
+  <div class="nav">
+    <div class="nav-prev">
       
-    <script src="https://blog.kiwen.ga/media/js/functions-post.js"></script>
-
+        <i class="fa fa-chevron-left"></i>
+        <a class="nav-pc-next" title="Finalshell 3.0.10 高级免安装版" href="https://blog.kiwen.ga/post/finalshell-3010-gao-ji-mian-an-zhuang-ban/">Finalshell 3.0.10 高级免安装版</a class="nav-pc-next">
+        <a class="nav-mobile-prev" title="Finalshell 3.0.10 高级免安装版" href="https://blog.kiwen.ga/post/finalshell-3010-gao-ji-mian-an-zhuang-ban/">上一篇</a>
+      
     </div>
-    <!-- end: #wrapper -->
-  </body>
+    <div class="nav-next">
+      
+        <a class="nav-pc-next" title="SSF构建过程" href="https://blog.kiwen.ga/post/ssf-gou-jian-guo-cheng/">SSF构建过程</a>
+        <a class="nav-mobile-next" title="SSF构建过程" href="https://blog.kiwen.ga/post/ssf-gou-jian-guo-cheng/">下一篇</a>
+        <i class="fa fa-chevron-right"></i>
+      
+    </div>
+  </div>
+</div>
+            
+            
+  
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-box">
+  <footer class="footer">
+    <div class="copyright">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | © 2019-2020 Theme By <a
+        href="https://github.com/hsxyhao/gridea-theme-next" target="_blank">HsxyHao</a>
+    </div>
+    <div class="poweredby">
+      
+    </div>
+  </footer>
+  
+  
+  <div class="pisces back-to-top" id="back_to_top">
+    <i class="fa fa-arrow-up"></i>
+    
+    <span class="scrollpercent">
+      <span id="back_to_top_text">0</span>%
+    </span>
+    
+  </div>
+  
+  
+  
+</div>
+<script>
+
+  let sideBarOpen = 'sidebar-open';
+  let body = document.body;
+  let back2Top = document.querySelector('#back_to_top'),
+    back2TopText = document.querySelector('#back_to_top_text'),
+    drawerBox = document.querySelector('#drawer_box'),
+    rightSideBar = document.querySelector('.sidebar'),
+    viewport = document.querySelector('body');
+
+  function scrollAnimation(currentY, targetY) {
+
+    let needScrollTop = targetY - currentY
+    let _currentY = currentY
+    setTimeout(() => {
+      const dist = Math.ceil(needScrollTop / 10)
+      _currentY += dist
+      window.scrollTo(_currentY, currentY)
+      if (needScrollTop > 10 || needScrollTop < -10) {
+        scrollAnimation(_currentY, targetY)
+      } else {
+        window.scrollTo(_currentY, targetY)
+      }
+    }, 1)
+  }
+
+  back2Top.addEventListener("click", function (e) {
+    scrollAnimation(document.scrollingElement.scrollTop, 0);
+    e.stopPropagation();
+    return false;
+  });
+
+  window.addEventListener('scroll', function (e) {
+    let percent = document.scrollingElement.scrollTop / (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight) * 100;
+    if (percent > 1 && !back2Top.classList.contains('back-top-active')) {
+      back2Top.classList.add('back-top-active');
+    }
+    if (percent == 0) {
+      back2Top.classList.remove('back-top-active');
+    }
+    if (back2TopText) {
+      back2TopText.textContent = Math.floor(percent);
+    }
+  });
+
+
+  let hasCacu = false;
+  window.onresize = function () {
+    calcuHeight();
+  }
+
+  function calcuHeight() {
+    // 动态调整站点概览高度
+    if (!hasCacu && back2Top.classList.contains('pisces') || back2Top.classList.contains('gemini')) {
+      let sideBar = document.querySelector('.sidebar');
+      let navUl = document.querySelector('#site_nav');
+      sideBar.style = 'margin-top:' + (navUl.offsetHeight + navUl.offsetTop + 15) + 'px;';
+      hasCacu = true;
+    }
+  }
+  calcuHeight();
+
+  let open = false, MOTION_TIME = 300, RIGHT_MOVE_DIS = '320px';
+
+  if (drawerBox) {
+    let rightMotions = document.querySelectorAll('.right-motion');
+    let right = drawerBox.classList.contains('right');
+
+    let transitionDir = right ? "transition.slideRightIn" : "transition.slideLeftIn";
+
+    let openProp, closeProp;
+    if (right) {
+      openProp = {
+        paddingRight: RIGHT_MOVE_DIS
+      };
+      closeProp = {
+        paddingRight: '0px'
+      };
+    } else {
+      openProp = {
+        paddingLeft: RIGHT_MOVE_DIS
+      };
+      closeProp = {
+        paddingLeft: '0px'
+      };
+    }
+
+    drawerBox.onclick = function () {
+      open = !open;
+      window.Velocity(rightSideBar, 'stop');
+      window.Velocity(viewport, 'stop');
+      window.Velocity(rightMotions, 'stop');
+      if (open) {
+        window.Velocity(rightSideBar, {
+          width: RIGHT_MOVE_DIS
+        }, {
+          duration: MOTION_TIME,
+          begin: function () {
+            window.Velocity(rightMotions, transitionDir, {});
+          }
+        })
+        window.Velocity(viewport, openProp, {
+          duration: MOTION_TIME
+        });
+      } else {
+        window.Velocity(rightSideBar, {
+          width: '0px'
+        }, {
+          duration: MOTION_TIME,
+          begin: function () {
+            window.Velocity(rightMotions, {
+              opacity: 0
+            });
+          }
+        })
+        window.Velocity(viewport, closeProp, {
+          duration: MOTION_TIME
+        });
+      }
+      for (let i = 0; i < drawerBox.children.length; i++) {
+        drawerBox.children[i].classList.toggle('muse-line');
+      }
+      drawerBox.classList.toggle(sideBarOpen);
+    }
+  }
+
+  // 链接跳转
+  let newWindow = 'false'
+  if (newWindow === 'true') {
+    let links = document.querySelectorAll('.post-body a')
+    links.forEach(item => {
+      if (!item.classList.contains('btn')) {
+        item.setAttribute("target", "_blank");
+      }
+    })
+  }
+
+  let faSearch = document.querySelector('#fa_search');
+  faSearch.addEventListener('click', function () {
+    document.querySelector('#search_mask').style = ''
+  })
+
+  // 代码高亮
+  hljs.initHighlightingOnLoad();
+  
+  // 离开当前页title变化
+  var leaveTitle = "";
+  if (leaveTitle) {
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState == 'hidden') {
+        normal_title = document.title;
+        document.title = leaveTitle;
+      } else {
+        document.title = normal_title;
+      }
+    });
+  }
+
+</script>
+    <div class="light-box" id="light_box"></div>
+<script>
+  let imgs = document.querySelectorAll('.post-body img');
+  let lightBox = document.querySelector('#light_box');
+  lightBox.addEventListener('mousedown', (e) => {
+    e.preventDefault()
+  })
+  lightBox.addEventListener('mousewheel', (e) => {
+    e.preventDefault()
+  })
+  let width = window.innerWidth * 0.8;
+  lightBox.onclick = () => {
+    let img = lightBox.querySelector('img');
+    lightBox.style = '';
+    img && img.remove();
+  }
+  imgs.forEach(item => {
+    item.onclick = function (e) {
+      let lightImg = document.createElement('img');
+      lightImg.src = this.src;
+      lightBox.style = `height: 100%; opacity: 1; background-color: rgba(0, 0, 0, 0.5);cursor: zoom-out;`;
+      lightImg.style = `width: ${width}px;border-radius: 2px;`;
+      lightImg.onclick = function () {
+        lightBox.style = '';
+        this.remove();
+      }
+      lightBox.append(lightImg);
+    }
+  })
+</script>
+    <div class="reward-mask" style="display: none;">
+  <div class="reward-relative">
+    <span class="close" aria-hidden="true">x</span>
+    <div class="reward-body">
+      <h2>感谢您的支持，我会继续努力的!</h2>
+      <div class="reward-img-box">
+        <div style="position: relative; width: 140px; height: 140px;">
+          
+          
+          
+        </div>
+      </div>
+      <p class="reward-word">扫码打赏，你说多少就多少</p>
+      <p class="reward-tip">打开微信扫一扫，即可进行扫码打赏哦</p>
+    </div>
+    <div class="bottom">
+      
+      
+    </div>
+  </div>
+</div>
+<style>
+  .reward-mask {
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #00000054;
+  }
+
+  .reward-relative {
+    position: relative;
+    width: 480px;
+    text-align: center;
+    margin: 0 auto;
+    border-radius: 5px;
+    background-color: #fff;
+    top: 50%;
+    margin-top: -205px;
+  }
+
+  .reward-relative .close {
+    position: absolute;
+    right: 10px;
+    font-weight: normal;
+    font-size: 16px;
+    color: #929292;
+  }
+
+  .reward-body {
+    padding: 40px 20px 20px;
+  }
+
+  .bottom {
+    display: flex;
+  }
+
+  .reward-btn {
+    text-align: center;
+  }
+
+  .reward-btn-text {
+    display: inline-block;
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    border-radius: 50%;
+    background-color: #ff9734;
+    color: #FFF;
+    margin-top: 20px;
+  }
+
+  .pay-text {
+    margin-top: 10px;
+    padding: 10px;
+    flex: 1;
+    transition: all .2s linear;
+  }
+
+  .pay-text:hover {
+    background-color: #a5a5a536;
+  }
+
+  .reward-body h2 {
+    padding-top: 10px;
+    text-align: center;
+    color: #a3a3a3;
+    font-size: 16px;
+    font-weight: normal;
+    margin: 0 0 20px;
+  }
+
+  .reward-body h2:after,
+  .reward-body h2:before {
+    font-family: Arial, Helvetica, sans-serif;
+    background: 0 0;
+    width: 0;
+    height: 0;
+    font-style: normal;
+    color: #eee;
+    font-size: 80px;
+    position: absolute;
+    top: 20px;
+  }
+
+  .reward-body h2:before {
+    content: '\201c';
+    left: 50px;
+  }
+
+  .reward-body h2:after {
+    content: '\201d';
+    right: 80px;
+  }
+
+  .reward-img-box {
+    display: inline-block;
+    padding: 10px;
+    border: 6px solid #ea5f00;
+    margin: 0 auto;
+    border-radius: 3px;
+    position: relative;
+  }
+
+  .reward-img {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+  }
+
+  @media (max-width: 767px) {
+    .reward-relative {
+      height: 100%;
+      top: 0px;
+      margin-top: 0;
+      width: auto;
+    }
+
+    .reward-relative .bottom {
+      flex-direction: column;
+    }
+
+    .reward-relative .pay-text {
+      width: 80%;
+      margin: 5px auto;
+      border: 1px solid silver;
+      padding: 6px;
+      border-radius: 4px;
+    }
+
+    .reward-body h2:after {
+      right: 40px;
+    }
+
+    .reward-body h2:after,
+    .reward-body h2:before {
+      font-size: 60px;
+    }
+
+    .reward-body h2:before {
+      left: 20px;
+    }
+  }
+</style>
+<script>
+  !function () {
+    var mask = document.querySelector('.reward-mask');
+    let close = document.querySelector('.reward-relative .close');
+    let rewardBtn = document.querySelector('.reward-btn');
+
+    let zfb = document.querySelector('#zfb'),
+      wx = document.querySelector('#wx'),
+      zfbBtn = document.querySelector('#zfbBtn'),
+      wxBtn = document.querySelector('#wxBtn');
+
+    if (zfbBtn && wxBtn) {
+      zfbBtn.addEventListener('click', () => {
+        window.Velocity(zfb, 'transition.slideLeftIn', {
+          duration: 400
+        });
+        window.Velocity(wx, 'transition.slideRightOut', {
+          display: 'none',
+          duration: 400
+        });
+      });
+
+      wxBtn.addEventListener('click', () => {
+        window.Velocity(wx, 'transition.slideRightIn', {
+          duration: 400
+        });
+        window.Velocity(zfb, 'transition.slideLeftOut', {
+          display: 'none',
+          duration: 400
+        });
+      });
+    }
+
+    rewardBtn.addEventListener('click', (e) => {
+      window.Velocity(mask, 'transition.slideDownIn', {
+        duration: 400
+      })
+    });
+
+    close.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.Velocity(mask, 'transition.slideUpOut', {
+        duration: 400
+      })
+    })
+  }()
+</script>
+
+  </div>
+</body>
+
+  <div class="search-mask" id="search_mask" style="display: none;">
+  <div class="search-box">
+    <div class="search-title">
+      <i class="fa fa-search"></i>
+      <div class="input-box">
+        <input id="search" type="text" class="language" data-lan="search" placeholder="搜索">
+      </div>
+      <i id="close" class="fa fa-times-circle"></i>
+    </div>
+    <div class="stat-box">
+      <span id="stat_count">0</span><span class="language" data-lan="stat">条相关条目，使用了</span><span id="stat_times">0</span><span class="language" data-lan="stat-time">毫秒</span>
+      <hr>
+    </div>
+    <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://blog.kiwen.ga/post/finalshell-3010-gao-ji-mian-an-zhuang-ban/"" data-c="
+          &lt;p&gt;前几天刚发现Finalshell高级免安装版的软件&lt;/p&gt;
+&lt;p&gt;压缩包解压就可以直接使用了，用了几天还不错&lt;br&gt;
+点击左侧两个区域可以查看自己的进程和服务器的延迟，下方区域可以上传和下载服务器的文件&lt;br&gt;
+Finalshell就等于xshell和FileZilla的结合版&lt;br&gt;
+&lt;img src=&#34;https://blog.kiwen.ga/post-images/1593995337084.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;br&gt;
+其余功能可自行探索&lt;/p&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://blog.kiwen.ga/post-images/1593995340826.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;p&gt;想要解锁高级版直接点击左下角的升至高级版&lt;br&gt;
+下载链接     &lt;a href=&#34;https://pcm4tco5qwrpswel2fln.sharepoint.com/:u:/s/movie/ESpb9qxshTlCqPjgQFmplnIBr_ICqG1k6zF7Ee3TV4Tolw?e=vHEp9o&#34;&gt;下载&lt;/a&gt;&lt;/p&gt;
+">Finalshell 3.0.10 高级免安装版</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://blog.kiwen.ga/post/li-yong-cf-de-works-da-jian-zai-xian-dai-li/"" data-c="
+          &lt;p&gt;开源地址https://github.com/EtherDream/jsproxy/blob/master/cf-worker/index.js&lt;br&gt;
+搭建方法&lt;br&gt;
+使用 CloudFlare Worker 免费部署&lt;/p&gt;
+&lt;p&gt;简介&lt;br&gt;
+CloudFlare Worker 是 CloudFlare 的边缘计算服务。开发者可通过 JavaScript 对 CDN 进行编程，从而能灵活处理 HTTP 请求。这使得很多任务可在 CDN 上完成，无需自己的服务器参与。&lt;/p&gt;
+&lt;p&gt;部署&lt;br&gt;
+首页：https://workers.cloudflare.com&lt;/p&gt;
+&lt;p&gt;注册，登陆，Start building，取一个子域名，Create a Worker。&lt;/p&gt;
+&lt;p&gt;复制 index.js 到左侧代码框，Save and deploy。如果正常，右侧应显示首页。&lt;/p&gt;
+&lt;p&gt;收藏地址框中的 https://xxxx.子域名.workers.dev，以后可直接访问。&lt;/p&gt;
+&lt;p&gt;计费&lt;br&gt;
+后退到 overview 页面可参看使用情况。免费版每天有 10 万次免费请求，对于个人通常足够。&lt;/p&gt;
+&lt;p&gt;如果不够用，可注册多个 Worker，在 conf.js 中配置多线路负载均衡。或者升级到 $5 的高级版本，每月可用 1000 万次请求（超出部分 $0.5/百万次请求）。&lt;/p&gt;
+&lt;p&gt;修改配置&lt;br&gt;
+默认情况下，静态资源从 https://etherdream.github.io/jsproxy 反向代理，可通过代码中 ASSET_URL 配置，从而可使用自定义的 conf.js 配置。&lt;/p&gt;
+&lt;p&gt;存在问题&lt;br&gt;
+WebSocket 代理尚未实现&lt;/p&gt;
+&lt;p&gt;外链限制尚未实现&lt;/p&gt;
+&lt;p&gt;未充分测试，以后再完善&lt;/p&gt;
+">利用cf的works搭建在线代理</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://blog.kiwen.ga/post/ssf-gou-jian-guo-cheng/"" data-c="
+          &lt;p&gt;SSF构建过程&lt;br&gt;
+源码分析&lt;br&gt;
+首先创建一个SqlSesionFactoryBuilder对象&lt;br&gt;
+[Java] 纯文本查看 复制代码&lt;br&gt;
+?&lt;br&gt;
+1&lt;br&gt;
+2&lt;br&gt;
+3&lt;br&gt;
+4&lt;br&gt;
+5&lt;br&gt;
+public class SqlSessionFactoryBuilder {&lt;br&gt;
+public SqlSessionFactoryBuilder() {&lt;br&gt;
+}&lt;br&gt;
+//省略其它代码&lt;br&gt;
+}&lt;/p&gt;
+&lt;p&gt;其次 SSFB 对象调用 build 方法&lt;br&gt;
+[Java] 纯文本查看 复制代码&lt;br&gt;
+?&lt;br&gt;
+1&lt;br&gt;
+2&lt;br&gt;
+3&lt;br&gt;
+public SqlSessionFactory build(InputStream inputStream) {&lt;br&gt;
+return this.build((InputStream)inputStream, (String)null, (Properties)null);&lt;br&gt;
+}&lt;/p&gt;
+&lt;p&gt;然后再看他的重载方法&lt;br&gt;
+[Java] 纯文本查看 复制代码&lt;br&gt;
+?&lt;br&gt;
+01&lt;br&gt;
+02&lt;br&gt;
+03&lt;br&gt;
+04&lt;br&gt;
+05&lt;br&gt;
+06&lt;br&gt;
+07&lt;br&gt;
+08&lt;br&gt;
+09&lt;br&gt;
+10&lt;br&gt;
+11&lt;br&gt;
+12&lt;br&gt;
+13&lt;br&gt;
+14&lt;br&gt;
+15&lt;br&gt;
+public SqlSessionFactory build(InputStream inputStream, String environment, Properties properties) {&lt;br&gt;
+try {&lt;br&gt;
+XMLConfigBuilder parser = new XMLConfigBuilder(inputStream, environment, properties);&lt;br&gt;
+return build(parser.parse());&lt;br&gt;
+} catch (Exception e) {&lt;br&gt;
+throw ExceptionFactory.wrapException(&amp;quot;Error building SqlSession.&amp;quot;, e);&lt;br&gt;
+} finally {&lt;br&gt;
+ErrorContext.instance().reset();&lt;br&gt;
+try {&lt;br&gt;
+inputStream.close();&lt;br&gt;
+} catch (IOException e) {&lt;br&gt;
+// Intentionally ignore. Prefer previous error.&lt;br&gt;
+}&lt;br&gt;
+}&lt;br&gt;
+}&lt;/p&gt;
+&lt;p&gt;这个构造函数将我们的配置文件转换为 XMLConfigBuilder 对象，这个很复杂，由于时间，再发帖另论&lt;br&gt;
+[Java] 纯文本查看 复制代码&lt;br&gt;
+?&lt;br&gt;
+1&lt;br&gt;
+return build(parser.parse());&lt;/p&gt;
+&lt;p&gt;这里有两处注意的地方，parser.parse() 返回一个Configuration 对象，这个对象保罗万千，暂时也不深究。此外build方法的实现如下：&lt;br&gt;
+[Java] 纯文本查看 复制代码&lt;br&gt;
+?&lt;br&gt;
+1&lt;br&gt;
+2&lt;br&gt;
+3&lt;br&gt;
+public SqlSessionFactory build(Configuration config) {&lt;br&gt;
+return new DefaultSqlSessionFactory(config);&lt;br&gt;
+}&lt;/p&gt;
+&lt;p&gt;它返回了 DefaultSqlSessionFactory对象，并且将 Configuration 对象赋值其属性&lt;br&gt;
+[Java] 纯文本查看 复制代码&lt;br&gt;
+?&lt;br&gt;
+1&lt;br&gt;
+2&lt;br&gt;
+3&lt;br&gt;
+4&lt;br&gt;
+5&lt;br&gt;
+6&lt;br&gt;
+7&lt;br&gt;
+8&lt;br&gt;
+9&lt;br&gt;
+public class DefaultSqlSessionFactory implements SqlSessionFactory {&lt;/p&gt;
+&lt;p&gt;private final Configuration configuration;&lt;/p&gt;
+&lt;p&gt;public DefaultSqlSessionFactory(Configuration configuration) {&lt;br&gt;
+this.configuration = configuration;&lt;br&gt;
+}&lt;br&gt;
+//这里省略其它代码&lt;br&gt;
+}&lt;/p&gt;
+&lt;p&gt;由于 DefaultSqlSessionFactory 实现了 SSF 接口，那麽&lt;br&gt;
+[Java] 纯文本查看 复制代码&lt;br&gt;
+?&lt;br&gt;
+1&lt;br&gt;
+2&lt;br&gt;
+3&lt;br&gt;
+4&lt;br&gt;
+5&lt;br&gt;
+6&lt;br&gt;
+7&lt;br&gt;
+8&lt;br&gt;
+9&lt;br&gt;
+public class DefaultSqlSessionFactory implements SqlSessionFactory {&lt;/p&gt;
+&lt;p&gt;private final Configuration configuration;&lt;/p&gt;
+&lt;p&gt;public DefaultSqlSessionFactory(Configuration configuration) {&lt;br&gt;
+this.configuration = configuration;&lt;br&gt;
+}&lt;br&gt;
+//这里省略其它代码&lt;br&gt;
+}&lt;/p&gt;
+&lt;p&gt;这个就结束了&lt;/p&gt;
+&lt;p&gt;源码的设计思想&lt;br&gt;
+首先先定义SSF接口&lt;br&gt;
+[Asm] 纯文本查看 复制代码&lt;br&gt;
+?&lt;br&gt;
+1&lt;br&gt;
+2&lt;br&gt;
+3&lt;br&gt;
+4&lt;br&gt;
+5&lt;br&gt;
+package com.yefengyu.mybatis;&lt;/p&gt;
+&lt;p&gt;public interface SqlSessionFactory {&lt;br&gt;
+void test();&lt;br&gt;
+}&lt;/p&gt;
+&lt;p&gt;然后通过编写代码来实现调用接口&lt;br&gt;
+[Java] 纯文本查看 复制代码&lt;br&gt;
+?&lt;br&gt;
+01&lt;br&gt;
+02&lt;br&gt;
+03&lt;br&gt;
+04&lt;br&gt;
+05&lt;br&gt;
+06&lt;br&gt;
+07&lt;br&gt;
+08&lt;br&gt;
+09&lt;br&gt;
+10&lt;br&gt;
+11&lt;br&gt;
+12&lt;br&gt;
+13&lt;br&gt;
+14&lt;br&gt;
+15&lt;br&gt;
+16&lt;br&gt;
+17&lt;br&gt;
+18&lt;br&gt;
+19&lt;br&gt;
+20&lt;br&gt;
+21&lt;br&gt;
+package com.yefengyu.mybatis;&lt;/p&gt;
+&lt;p&gt;import org.apache.ibatis.builder.xml.XMLConfigBuilder;&lt;br&gt;
+import org.apache.ibatis.session.Configuration;&lt;/p&gt;
+&lt;p&gt;import java.io.InputStream;&lt;/p&gt;
+&lt;p&gt;public class DefaultSqlSessionFactory implements SqlSessionFactory {&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;private Configuration configuration = null;  
+
+public DefaultSqlSessionFactory(InputStream inputStream) {  
+    XMLConfigBuilder parser = new XMLConfigBuilder(inputStream);  
+    this.configuration = parser.parse();  
+}  
+
+@Override
+public void test() {  
+    //使用 configuration 完成相关功能  
+}  
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;}&lt;/p&gt;
+&lt;p&gt;测试一下&lt;br&gt;
+[Java] 纯文本查看 复制代码&lt;br&gt;
+?&lt;br&gt;
+01&lt;br&gt;
+02&lt;br&gt;
+03&lt;br&gt;
+04&lt;br&gt;
+05&lt;br&gt;
+06&lt;br&gt;
+07&lt;br&gt;
+08&lt;br&gt;
+09&lt;br&gt;
+10&lt;br&gt;
+11&lt;br&gt;
+12&lt;br&gt;
+13&lt;br&gt;
+14&lt;br&gt;
+15&lt;br&gt;
+16&lt;br&gt;
+package com.yefengyu.mybatis;&lt;/p&gt;
+&lt;p&gt;import org.apache.ibatis.io.Resources;&lt;/p&gt;
+&lt;p&gt;import java.io.IOException;&lt;br&gt;
+import java.io.InputStream;&lt;/p&gt;
+&lt;p&gt;public class Main {&lt;br&gt;
+public static void main(String[] args) throws IOException {&lt;br&gt;
+String resource = &amp;quot;mybatis-config.xml&amp;quot;;&lt;br&gt;
+InputStream inputStream = Resources.getResourceAsStream(resource);&lt;br&gt;
+SqlSessionFactory sqlSessionFactory = new DefaultSqlSessionFactory(inputStream);&lt;br&gt;
+sqlSessionFactory.test();&lt;br&gt;
+}&lt;/p&gt;
+&lt;p&gt;}&lt;/p&gt;
+&lt;p&gt;这种方式也有一定的缺点&lt;br&gt;
+就是首先如果有多个SSF实现的话，把 InputStream 转换为 Configuration的过程在每个构造函数都会有。&lt;/p&gt;
+&lt;p&gt;上面的SSF指的是SqlSessionFactory&lt;br&gt;
+SSFB值得是SqlSessionFactoryBuilder&lt;/p&gt;
+&lt;p&gt;请求批评指正&lt;/p&gt;
+&lt;p&gt;如果乱码，看52上我发的https://www.52pojie.cn/thread-1174330-1-1.html&lt;/p&gt;
+">SSF构建过程</a>
+      </div>
+      
+    </div>
+    <div class="page">
+      <div id="page_ul"></div>
+    </div>
+  </div>
+</div>
+<script>
+  !function () {
+    let searchMask = document.querySelector('#search_mask');
+    let result = document.querySelector('#result');
+    let items = document.querySelectorAll('.item');
+    let searchBox = document.querySelector('#search');
+    let statCount = document.querySelector('#stat_count');
+    let statTimes = document.querySelector('#stat_times');
+    let pageUl = document.querySelector('#page_ul');
+    let close = document.querySelector('#close');
+    
+    close.addEventListener('click', function() {
+      searchMask.style = 'display: none;'
+    })
+
+    let finds = [];
+    let contents = [];
+    let pageSize = 10;
+    items.forEach(item => {
+      let a = item.querySelector('a');
+      contents.push({
+        title: a.innerText,
+        details: a.dataset.c,
+        link: a.href
+      })
+      item.remove();
+    })
+
+    function insertStr(soure, start, count) {
+      let newStr = soure.substr(start, count);
+      return soure.slice(0, start) + '<em>' + newStr + '</em>' + soure.slice(start + count);
+    }
+
+    pageUl.addEventListener('click', function(event) {
+      let target = event.target;
+      if (target.__proto__ === HTMLSpanElement.prototype) {
+        appendResults(parseInt(target.dataset.i));
+      }
+    })
+
+    function appendResults(index) {
+      let htmlResult = '';
+      let start = index || 0;
+      let end = Math.min(start + pageSize, finds.length);
+      for (let i = start; i < end; i++) {
+        const current = finds[i];
+        let html = current.title;
+        let sum = 0;
+        let positions = current.positions;
+        positions.forEach(position => {
+          html = insertStr(html, position.start + sum, position.count);
+          sum += 9;
+        })
+        htmlResult += `<div class="item"><a class="result-title" href="${current.link}">${html}</a></div>`;
+      }
+      result.innerHTML = htmlResult;
+      pageUl.innerHTML = '';
+      let count = finds.length / pageSize;
+      let lis = '';
+      if (start !== 0) {
+        lis += `<span class="fa fa-angle-left" data-i='${start - 1}'></span>`;
+      }
+      for (let i = 0; i < count; i++) {
+        lis += `<span class='${i === start?'current':''}' data-i='${i}'>${i+1}</span>`;     
+      }
+      if (start+1 < count) {
+        lis += `<span class="fa fa-angle-right" data-i='${start+1}'></span>`;  
+      }
+      pageUl.innerHTML = lis;
+    }
+
+    function search(delay) {
+      let timer = null
+      return function () {
+        clearTimeout(timer)
+        timer = setTimeout(() => {
+          let start = Date.now();
+          let segments = searchBox.value.split(' ').filter(c => c != '');
+          if (segments.length <= 0) {
+            return;
+          }
+          finds = [];
+          let htmlResult = '';
+          contents.forEach(content => {
+            let title = content.title;
+            let positions = [];
+            let find = false;
+            segments.forEach((segment) => {
+              if (content.title.includes(segment)) {
+                find = true;
+                positions.push({
+                  start: content.title.indexOf(segment),
+                  count: segment.length
+                })
+              } else if (content.details.includes(segment)) {
+                find = true;
+              }
+            });
+            if (find) {
+              finds.push({
+                title: content.title,
+                link: content.link,
+                positions
+              });
+            }
+          })
+          appendResults(0);
+          statCount.textContent = finds.length;
+          statTimes.textContent = Date.now() - start;
+        }, delay)
+      }
+    }
+    searchBox.addEventListener('input', search(200));
+  }()
+</script>
+
+<input hidden id="copy" />
+<script>
+  let language = '';
+  if (language !== '') {
+    let map = new Map();
+    if (language === 'en') {
+      map.set('search', 'Search');
+      map.set('category', 'Categories');
+      map.set('article', 'Articles');
+      map.set('tag', 'Tags');
+      map.set('top', 'Top');
+      map.set('publish', 'published');
+      map.set('minute', ' minutes');
+      map.set('read-more', 'Read More');
+      map.set('view', 'View');
+      map.set('words', ' words');
+      map.set('category-in', 'category in');
+      map.set('preview', 'Meta');
+      map.set('index', 'Toc');
+      map.set('no-archives', "You haven't created yet");
+      map.set('archives', " articles in total");
+      map.set('cloud-tags', " tags in total");
+      map.set('copyright', "Copyright: ");
+      map.set('author', "Author: ");
+      map.set('link', "Link: ");
+      map.set('leave-message', "Leave a message");
+      map.set('format', "Links Format");
+      map.set('site-name', "Name: ");
+      map.set('site-link', "Link: ");
+      map.set('site-desc', "Desc: ");
+      map.set('stat', " related results, taking ");
+      map.set('stat-time', " ms");
+      map.set('site-img', "Image: ");
+    }
+
+    if (map.size > 0) {
+      let lanElems = document.querySelectorAll('.language');
+      lanElems.forEach(elem => {
+        let lan = elem.dataset.lan, text = map.get(lan);
+        if (elem.__proto__ === HTMLInputElement.prototype) {
+          elem.placeholder = text
+        } else {
+          if (elem.dataset.count) {
+            text = elem.dataset.count + text;
+          }
+          elem.textContent = text;
+        }
+      })
+    }
+  }
+  //拿来主义(真香)^_^，Clipboard 实现摘自掘金 https://juejin.im/post/5aefeb6e6fb9a07aa43c20af
+  window.Clipboard = (function (window, document, navigator) {
+    var textArea,
+      copy;
+
+    // 判断是不是ios端
+    function isOS() {
+      return navigator.userAgent.match(/ipad|iphone/i);
+    }
+    //创建文本元素
+    function createTextArea(text) {
+      textArea = document.createElement('textArea');
+      textArea.value = text;
+      textArea.style.width = 0;
+      textArea.style.height = 0;
+      textArea.clientHeight = 0;
+      textArea.clientWidth = 0;
+      document.body.appendChild(textArea);
+    }
+    //选择内容
+    function selectText() {
+      var range,
+        selection;
+
+      if (isOS()) {
+        range = document.createRange();
+        range.selectNodeContents(textArea);
+        selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        textArea.setSelectionRange(0, 999999);
+      } else {
+        textArea.select();
+      }
+    }
+
+    //复制到剪贴板
+    function copyToClipboard() {
+      try {
+        document.execCommand("Copy")
+      } catch (err) {
+        alert("复制错误！请手动复制！")
+      }
+      document.body.removeChild(textArea);
+    }
+
+    copy = function (text) {
+      createTextArea(text);
+      selectText();
+      copyToClipboard();
+    };
+
+    return {
+      copy: copy
+    };
+  })(window, document, navigator);
+
+  function copyCode(e) {
+    if (e.srcElement.tagName === 'SPAN' && e.srcElement.classList.contains('copy-code')) {
+      let code = e.currentTarget.querySelector('code');
+      var text = code.innerText;
+      if (e.srcElement.textContent === '复制成功') {
+        return;
+      }
+      e.srcElement.textContent = '复制成功';
+      (function (elem) {
+        setTimeout(() => {
+          if (elem.textContent === '复制成功') {
+            elem.textContent = '复制代码'
+          }
+        }, 1000);
+      })(e.srcElement)
+      Clipboard.copy(text);
+    }
+  }
+
+  let pres = document.querySelectorAll('pre');
+  pres.forEach(pre => {
+    let code = pre.querySelector('code');
+    let copyElem = document.createElement('span');
+    copyElem.classList.add('copy-code');
+    copyElem.textContent = '复制代码';
+    pre.appendChild(copyElem);
+    pre.onclick = copyCode
+  })
+
+</script>
+<script src="/media/js/motion.js"></script>
+
+<script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+<script>
+  var scroll = new SmoothScroll('a[href*="#"]', {
+    speed: 200
+  });
+</script>
+
+
+<script src="/media/js/mouse/peace.js"></script>
+
+
+<script src="/media/js/cool.js"></script>
+
 </html>
