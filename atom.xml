@@ -2,13 +2,24 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://blog.kiwen.ga</id>
     <title>Kiwen&apos;s Blog</title>
-    <updated>2020-07-26T00:55:34.687Z</updated>
+    <updated>2020-08-01T09:24:17.976Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://blog.kiwen.ga"/>
     <link rel="self" href="https://blog.kiwen.ga/atom.xml"/>
     <logo>https://blog.kiwen.ga/images/avatar.png</logo>
     <icon>https://blog.kiwen.ga/favicon.ico</icon>
     <rights>All rights reserved 2020, Kiwen&apos;s Blog</rights>
+    <entry>
+        <title type="html"><![CDATA[语雀免费领取10个月VIP]]></title>
+        <id>https://blog.kiwen.ga/post/yu-que-mian-fei-ling-qu-10-ge-yue-vip/</id>
+        <link href="https://blog.kiwen.ga/post/yu-que-mian-fei-ling-qu-10-ge-yue-vip/">
+        </link>
+        <updated>2020-08-01T09:22:46.000Z</updated>
+        <content type="html"><![CDATA[<p>语雀免费领取10个月VIP，虽然不知道有什么用。反正撸就是了。<br>
+https://www.yuque.com/e/channel?channel=juejin<br>
+<img src="https://blog.kiwen.ga/post-images/1596273844305.png" alt="" loading="lazy"></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Windows平台下使用 Rclone 挂载 OneDrive 为本地硬盘]]></title>
         <id>https://blog.kiwen.ga/post/windows-ping-tai-xia-shi-yong-rclone-gua-zai-onedrive-wei-ben-di-ying-pan/</id>
